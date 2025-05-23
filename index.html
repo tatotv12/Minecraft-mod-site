@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft მოდები</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header { background: #222; color: white; padding: 1rem; text-align: center; }
+    nav { display: flex; justify-content: center; gap: 1rem; padding: 0.5rem; background: #333; }
+    nav a { color: white; text-decoration: none; }
+    .content { padding: 1rem; }
+    .upload-form { background: white; padding: 1rem; border-radius: 0.5rem; max-width: 500px; margin: auto; }
+    .upload-form input, .upload-form textarea, .upload-form select { width: 100%; padding: 0.5rem; margin-bottom: 1rem; }
+    .mod-list { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 600px; margin: auto; }
+    .mod-card { background: white; padding: 1rem; border-radius: 0.5rem; }
+    footer { text-align: center; padding: 1rem; background: #222; color: white; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Minecraft მოდები / Mods</h1>
+    <select onchange="changeLang(this.value)">
+      <option value="ka">ქართული</option>
+      <option value="en">English</option>
+    </select>
+  </header>
+  <nav>
+    <a href="#mods">მოდები / Mods</a>
+    <a href="#upload">ატვირთვა / Upload</a>
+  </nav>
+  <div class="content">
+    <section id="mods">
+      <h2>მოდების სია / Mod List</h2>
+      <div class="mod-list" id="modList">
+        <!-- მოდები გამოჩნდება აქ -->
+      </div>
+    </section>
+
+    <section id="upload">
+      <h2>ატვირთე მოდი / Upload Your Mod</h2>
+      <form class="upload-form" onsubmit="handleUpload(event)">
+        <input type="text" id="modName" placeholder="მოდის სახელი / Mod name" required />
+        <textarea id="modDesc" placeholder="აღწერა / Description" required></textarea>
+        <input type="file" id="modFile" accept=".zip,.rar,.mcaddon" required />
+        <button type="submit">ატვირთვა / Upload</button>
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    უფასო მოდების ვებსაიტი Minecraft-ისთვის | Free Mods for Minecraft
+  </footer>
+
+  <script>
+    function handleUpload(e) {
+      e.preventDefault();
+      const name = document.getElementById('modName').value;
+      const desc = document.getElementById('modDesc').value;
+      const list = document.getElementById('modList');
+
+      const card = document.createElement('div');
+      card.className = 'mod-card';
+      card.innerHTML = `<h3>${name}</h3><p>${desc}</p><small>ატვირთულია ლოკალურად</small>`;
+      list.prepend(card);
+
+      alert('მოდი ატვირთულია ლოკალურად (არა სერვერზე).');
+    }
+
+    function changeLang(lang) {
+      document.documentElement.lang = lang;
+      alert('ენა გადაეშვა: ' + (lang === 'ka' ? 'ქართული' : 'English'));
+    }
+  </script>
+</body>
+</html>
